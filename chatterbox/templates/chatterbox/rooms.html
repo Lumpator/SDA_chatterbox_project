@@ -1,0 +1,15 @@
+{% extends "main.html" %}
+{% block title %}Chatterbox - rooms{% endblock %}
+
+{% block content %}
+    <div class="list-of-rooms">List of rooms:</div>
+    <div class="rooms-list">
+        <ul>
+            {% for room in rooms %}
+                <li>
+                    <a href="{% url "room" room.id %}">{{ room.name }}</a> {{ room.description }}
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

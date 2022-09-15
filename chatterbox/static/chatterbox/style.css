@@ -1,3 +1,86 @@
+/* common styles */
+
 body {
-    background: #ff44e9;
+    background: aqua;
 }
+
+header {
+    font-size: 40px;
+}
+
+nav ul {
+    list-style: none;
+}
+
+nav li {
+    display: inline-block;
+    padding: 10px;
+    border: solid 1px;
+}
+
+/* home.html */
+.welcome {
+    font-size: 2em;
+}
+
+/* rooms.html */
+.rooms-list ul {
+    list-style: none;
+}
+
+/* room.html */
+.room-descr {
+    font-size: 2em;
+}
+
+.message-form {
+    padding: 1em;
+}
+
+input[type=text] {
+    width: 70%;
+    word-wrap: break-word;
+}
+
+input[type=submit] {
+    width: fit-content;
+    background: red;
+    border-radius: 5px ;
+}
+
+.messages-box {
+
+}
+
+.other-message {
+    border: solid 2px darkblue;
+    background: lightgrey;
+    border-radius: 10px;
+    padding: 10px;
+    width: fit-content;
+    margin-bottom: 10px;
+}
+
+.my-message {
+    border: solid 2px darkred;
+    border-radius: 10px;
+    padding: 10px;
+    width: fit-content;
+    background: lightgreen;
+    margin-left: auto;
+    margin-right: 0;
+}
+
+/* create_room.html */
+
+.label {
+    width: 100px;
+    float:left;
+}
+
+.submit {
+    margin-left: 100px;
+}
+
+
+/* login.html */
