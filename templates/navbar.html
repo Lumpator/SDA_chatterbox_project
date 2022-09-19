@@ -4,7 +4,7 @@
     <ul>
         <li><a href="{% url 'home' %}">Home</a></li>
         {% if request.user.is_authenticated %}
-            <li><a href="{% url 'home' %}">Create Room</a></li>
+            <li><a href="{% url 'create_room' %}">Create Room</a></li>
             <li><a href="{% url 'rooms' %}">Rooms</a></li>
             <li class="last_item"><a href="{% url "logout" %}">Logout</a></li>
         {% endif %}

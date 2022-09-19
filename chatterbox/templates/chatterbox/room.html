@@ -1,4 +1,5 @@
 {% extends "main.html" %}
+
 {% block title %}Room: {{ room.name }} {% endblock %}
 
 {% block content %}
@@ -9,6 +10,7 @@
     <h2>Create message</h2>
     <div class="message-form">
         <form action="" method="POST">
+            {% csrf_token %}
             <label for="body">Message: </label>
             <input name="body" id="body" type="text" placeholder="Write your message here....">
             <input type="submit" value="Send">
@@ -17,8 +19,16 @@
 
     <h2>Messages</h2>
     <div class="message-box">
-    {% for message in messages %}
-        <div class="other-message"><b>{{ message.user }}</b>: {{ message.body }}</div>
-    {% endfor %}
+        {% for message in messages %}
+            <div class=
+                         {% if message.user == request.user %}
+                             "my-message">
+                         {% else %}
+                             "other-message">
+                         {% endif %}
+            <b>{{ message.user }}</b>: {{ message.body }} <br>
+            <span class="msg-time"><i>{{ message.created }}</i></span>
+            </div>
+        {% endfor %}
     </div>
 {% endblock %}

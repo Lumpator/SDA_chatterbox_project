@@ -1,5 +1,5 @@
-from django.http import HttpResponse
-from django.shortcuts import render
+from django.http import HttpResponse, HttpResponseRedirect
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 
 from chatterbox.models import Room, Message
@@ -27,6 +27,14 @@ def room(request, pk):
     room = Room.objects.get(id=pk)
     messages = Message.objects.filter(room=pk)
 
+    if request.method == "POST":
+        message = Message.objects.create(
+            user=request.user,
+            room=room,
+            body=request.POST.get("body")
+        )
+        return HttpResponseRedirect(request.path_info)
+
     context = {"room": room, "messages": messages}
     return render(request, "chatterbox/room.html", context)
 
@@ -37,3 +45,15 @@ def rooms(request):
     context = {"rooms": rooms}
 
     return render(request, "chatterbox/rooms.html", context)
+
+@login_required
+def create_room(request):
+    if request.method == "POST":
+        room = Room.objects.create(
+            name=request.POST.get("name"),
+            description=request.POST.get("descr")
+        )
+        return redirect("room", pk=room.id)
+
+    return render(request, "chatterbox/create_room.html")
+
