@@ -16,6 +16,10 @@ class Room(models.Model):
     def __str__(self):
         return self.name
 
+    def message_count(self):
+        room_messages = Message.objects.filter(room=self.id)
+        return room_messages.count()
+
 
 class Message(models.Model):
     body = models.TextField()
@@ -29,3 +33,4 @@ class Message(models.Model):
 
     def __str__(self):
         return self.body
+
