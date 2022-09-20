@@ -32,6 +32,8 @@ urlpatterns = [
     path("accounts/", include("accounts.urls")),
     path("accounts/", include("django.contrib.auth.urls")),
     path('create_room/', chatterbox.views.create_room, name="create_room"),
+    path("delete_room/<str:pk>", chatterbox.views.delete_room, name="delete_room"),
+    path("edit_room/<str:pk>", chatterbox.views.EditRoom.as_view(), name="edit_room"),
 
     path("__reload__/", include("django_browser_reload.urls")),
 

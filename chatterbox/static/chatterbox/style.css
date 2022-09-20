@@ -1,7 +1,7 @@
 /* common styles */
 
 body {
-    background: aqua;
+    background: whitesmoke;
 }
 
 header {
@@ -16,6 +16,13 @@ nav li {
     display: inline-block;
     padding: 10px;
     border: solid 1px;
+    border-radius: 5px;
+    background: lightgrey;
+    ;
+}
+nav a {
+    text-decoration: none;
+    color: darkred;
 }
 
 /* home.html */
@@ -26,6 +33,14 @@ nav li {
 /* rooms.html */
 .rooms-list ul {
     list-style: none;
+}
+
+.rooms-list li {
+    padding: 5px;
+}
+
+.last_item {
+    float: right;
 }
 
 /* room.html */
@@ -87,5 +102,9 @@ input[type=submit] {
     font-size: 0.7em;
 }
 
+.btn {
+    text-decoration: none
+;
+}
 
 /* login.html */
