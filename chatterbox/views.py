@@ -20,11 +20,21 @@ def home(request):
     return render(request, "chatterbox/home.html", context)
 
 @login_required
-def search(request, s: str):
-    rooms = Room.objects.filter(name__contains=s)
-    messages = Message.objects.filter(body__contains=s)
 
-    return render(request, "chatterbox/search.html", {"rooms": rooms, "messages": messages})
+
+
+def search(request):
+    if request.method == "POST":
+        s = request.POST.get("search")
+        s = s.strip()
+        if len(s) > 0:
+            rooms = Room.objects.filter(name__contains=s)
+            messages = Message.objects.filter(body__contains=s)
+            context = {"rooms": rooms, "messages": messages, "search": s}
+            return render(request, "chatterbox/search.html", context)
+        else:
+            return redirect("home")
+    return redirect("home")
 
 @login_required
 def room(request, pk):

@@ -23,7 +23,7 @@ urlpatterns = [
     path('', chatterbox.views.home, name='home'),
     path('admin/', admin.site.urls),
     path('hello/<s>', chatterbox.views.hello),
-    path('search/<s>', chatterbox.views.search),
+    path('search/', chatterbox.views.search, name="search"),
     path('room/<str:pk>/', chatterbox.views.room, name="room"),
     path("rooms/", chatterbox.views.rooms, name="rooms"),
 
