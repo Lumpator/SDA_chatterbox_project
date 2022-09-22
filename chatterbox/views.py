@@ -7,6 +7,7 @@ from django.views.generic import UpdateView
 
 from chatterbox.forms.forms import RoomEditForm
 from chatterbox.models import Room, Message
+from chatterbox.utils.utils_functions import text_to_unicode
 
 
 # Create your views here.
@@ -27,9 +28,11 @@ def search(request):
     if request.method == "POST":
         s = request.POST.get("search")
         s = s.strip()
+        s_normalized = text_to_unicode(s)
+        print(s_normalized)
         if len(s) > 0:
-            rooms = Room.objects.filter(name__contains=s)
-            messages = Message.objects.filter(body__contains=s)
+            rooms = Room.objects.filter(name__contains=s_normalized)
+            messages = Message.objects.filter(body__contains=s_normalized)
             context = {"rooms": rooms, "messages": messages, "search": s}
             return render(request, "chatterbox/search.html", context)
         else:
