@@ -1,17 +1,20 @@
-{% extends "main.html" %}
+{% extends "base.html" %}
 
 {% block title %}Create new room{% endblock %}
 
 {% block content %}
-
+<div class="container-fluid m-1">
     <form method="POST" action="">
+    <div class="mb-3 col-5">
             {% csrf_token %}
-        <label for="name">Name:</label> <br>
-    <input type="text" name="name"><br>
-        <label for="descr">Description:</label><br>
-    <input type="text" name="descr" id="descr"><br><br>
-    <input type="submit" value="Create">
+        <label for="name" class="form-label">Room name:</label> <br>
+    <input type="text" class="form-control" name="name"><br>
+        <label for="descr" class="form-label">Room description:</label><br>
+    <input type="text" name="descr" class="form-control" id="descr"><br><br>
+
+    <input type="submit" class="btn btn-primary btn-lg" value="Create">
+
+   </div>
     </form>
-
-
+</div>
 {% endblock %}

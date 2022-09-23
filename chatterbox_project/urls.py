@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 
 import chatterbox.views
+import profiles.views
 
 urlpatterns = [
     #chatterbox app
@@ -36,5 +37,9 @@ urlpatterns = [
     path("edit_room/<str:pk>", chatterbox.views.EditRoom.as_view(), name="edit_room"),
 
     path("__reload__/", include("django_browser_reload.urls")),
+
+    # profiles aplikace
+    path("users/", profiles.views.profile_list, name="profiles"),
+    path("user/<str:pk>", profiles.views.user_profile, name="profile"),
 
 ]

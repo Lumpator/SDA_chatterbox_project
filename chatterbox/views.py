@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
@@ -7,6 +8,7 @@ from django.views.generic import UpdateView
 
 from chatterbox.forms.forms import RoomEditForm
 from chatterbox.models import Room, Message
+from chatterbox.utils.utils_functions import text_to_unicode
 
 
 # Create your views here.
@@ -15,26 +17,29 @@ def hello(request, s: str):
 
 def home(request):
     rooms = Room.objects.all()
+    try:
+        last_msg = Message.objects.filter(user=request.user).first()
+    except:
+        last_msg = None
 
-    context = {"rooms": rooms}
+    context = {"rooms": rooms, "last_msg": last_msg}
     return render(request, "chatterbox/home.html", context)
 
 @login_required
-
-
-
 def search(request):
     if request.method == "POST":
         s = request.POST.get("search")
         s = s.strip()
+        s_normalized = text_to_unicode(s)
+        print(s_normalized)
         if len(s) > 0:
-            rooms = Room.objects.filter(name__contains=s)
-            messages = Message.objects.filter(body__contains=s)
+            rooms = Room.objects.filter(name__contains=s_normalized)
+            messages = Message.objects.filter(body__contains=s_normalized)
             context = {"rooms": rooms, "messages": messages, "search": s}
             return render(request, "chatterbox/search.html", context)
         else:
-            return redirect("home")
-    return redirect("home")
+            return redirect(request.META.get('HTTP_REFERER'))
+    return render(request, "chatterbox/search.html")
 
 @login_required
 def room(request, pk):

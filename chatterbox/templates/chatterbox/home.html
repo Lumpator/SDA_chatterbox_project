@@ -1,27 +1,65 @@
-{% extends 'main.html' %}
+{% extends 'base.html' %}
 
 {% block title %} Chatterbox - Home {% endblock %}
 
 {% block content %}
-    {% if request.user.is_authenticated %}
-        <div class="user_hello">Hello {{ request.user.username }}</div>
-    {% endif %}
-    <h2>Welcome in our chatterbox.</h2>
- <div class="list-of-rooms">List of rooms:</div>
-    <div class="rooms-list">
-        <ul>
+    {% if last_msg %}
 
+        <div class="card m-1 mt-3">
+            <div class="card-header">
+                Your last message was: {{ last_msg.created }}
+            </div>
+            <div class="card-body">
+                <h5 class="card-title"><small class="text-muted">
+                    Room: </small> {{ last_msg.room.name }}</h5>
+                <p class="card-text">"{{ last_msg.body }}"</p>
+                <a href="{% url "room" last_msg.room.id %}" class="btn btn-primary">Take me there</a>
+            </div>
+        </div>
+
+    {% endif %}
+
+
+
+    <div class="container-fluid mt-3">
+        <table class="table table-borderless caption-top">
+
+            <thead>
+            <tr>
+                <th scope="col">Room name</th>
+                <th scope="col">Description</th>
+                <th scope="col">Host</th>
+
+            </tr>
+            </thead>
+            <tbody>
             {% for room in rooms %}
-                <li>
-                    <a href="{% url "room" room.id %}">{{ room.name }}</a> {{ room.description }} <b>{{ room.message_count}} messages</b>
-   {% if room.host %}
-        <br>host: {{ room.host }}
-        {% if room.host.id == request.user.id %}  <!-- Pokud je aktuálně přihlášený uživatel "majitel" místnosti -->
-            <button><a class="btn" href="{% url "delete_room" room.id %}"> &#10060; DELETE</a></button>  <button><a class="btn" href="{% url "edit_room" room.id %}">&#9998; EDIT</a></button>
-        {% endif %}
-                {% endif %}
-                </li>
+                <tr>
+                    <td>
+                        <a href="{% url "room" room.id %}" class="btn btn-primary">{{ room.name }} <span
+                                class="badge text-bg-secondary">{{ room.message_count }}
+                            {% if room.message_count == 1 %}
+                                message {% else %} messages {% endif %}</span></a>
+                        {% if room.host.id == request.user.id %}
+                            <div class="btn-group" role="group">
+                                <a class="btn btn-danger" href="{% url "delete_room" room.id %}">Delete</a>
+                                <a class="btn btn-warning" href="{% url "edit_room" room.id %}">Edit</a>
+                            </div>
+
+                        {% endif %}</td>
+                    <td>{{ room.description }}  </td>
+                    {% if room.host.id == request.user.id %}
+                        <td>You</td>
+
+                    {% else %}
+                        <td> {{ room.host }} {% endif %}</td>
+
+
+                </tr>
             {% endfor %}
-        </ul>
+            </tbody>
+
+        </table>
+    </div>
     </div>
 {% endblock %}
