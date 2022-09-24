@@ -1,0 +1,45 @@
+<div class="container-fluid mt-3">
+    <table class="table table-borderless caption-top">
+
+        <thead>
+        <tr>
+            <th scope="col">Room name</th>
+            <th scope="col">Host</th>
+            <th scope="col">Description</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        {% for room in rooms %}
+            <tr>
+                {% comment %} Room name Col {% endcomment %}
+                <td class="col">
+                    <a href="{% url "room" room.id %}" class="btn btn-primary">{{ room.name }} <span
+                            class="badge text-bg-secondary">{{ room.message_count }}
+                        {% if room.message_count == 1 %}
+                            message {% else %} messages {% endif %}</span></a>
+
+                    {% if room.host.id == request.user.id %}
+                        <div class="btn-group" role="group">
+                            <a class="btn btn-danger" href="{% url "delete_room" room.id %}">Delete</a>
+                            <a class="btn btn-warning" href="{% url "edit_room" room.id %}">Edit</a>
+                        </div>
+
+                    {% endif %} </td>
+
+                {% comment %} Room host col {% endcomment %}
+                {% if room.host.id == request.user.id %}
+                    <td class="col">You</td>
+
+                {% else %}
+                    <td> {{ room.host }} {% endif %}</td>
+                {% comment %} Room description Col{% endcomment %}
+                <td class="col-9">{{ room.description }}  </td>
+
+
+            </tr>
+        {% endfor %}
+        </tbody>
+
+    </table>
+</div>
