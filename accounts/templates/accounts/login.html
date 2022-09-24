@@ -4,14 +4,17 @@
 
 {% block content %}
             <div class="container-fluid">
-    <h2>Sign up</h2>
+    <h2>Log In</h2>
 
         <form method="post">
         <div class="mb-3 col-8">
             {% csrf_token %}
             {{ form.as_p }}
-            <button class="btn btn-primary col-4" type="submit">Sign Up</button>
-        </div>
+            </div>
+            <button class="btn btn-primary col-4" type="submit">Log In</button> or <a href="/accounts/signup/" type="button" class="btn btn-outline-primary col-4">Sign up for free</a>
+
         </form>
+
+
 </div>
 {% endblock %}

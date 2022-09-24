@@ -3,12 +3,12 @@
 {% block title %}Edit room {{ request.room.name }}{% endblock %}
 
 {% block content %}
-
+<div class="container-fluid">
     <form method="POST" action="">
             {% csrf_token %}
-        <table>{{ form }}</table>
-    <input type="submit" value="Create">
+        {{ form.as_p }}
+    <input type="submit" class="btn btn-primary col-4" value="Edit">
     </form>
-
+</div>
 
 {% endblock %}

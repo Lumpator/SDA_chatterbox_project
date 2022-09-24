@@ -3,18 +3,13 @@
 {% block title %}Create new room{% endblock %}
 
 {% block content %}
-<div class="container-fluid m-1">
+<div class="container-fluid">
     <form method="POST" action="">
-    <div class="mb-3 col-5">
             {% csrf_token %}
-        <label for="name" class="form-label">Room name:</label> <br>
-    <input type="text" class="form-control" name="name"><br>
-        <label for="descr" class="form-label">Room description:</label><br>
-    <input type="text" name="descr" class="form-control" id="descr"><br><br>
+        {{ form.as_p }}
+    <input type="submit" class="btn btn-primary col-4" value="Create">
 
-    <input type="submit" class="btn btn-primary btn-lg" value="Create">
 
-   </div>
     </form>
 </div>
 {% endblock %}

@@ -6,7 +6,7 @@ from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.generic import UpdateView
 
-from chatterbox.forms.forms import RoomEditForm
+from chatterbox.forms.forms import RoomEditForm, RoomCreateForm
 from chatterbox.models import Room, Message
 from chatterbox.utils.utils_functions import text_to_unicode
 
@@ -75,7 +75,7 @@ def create_room(request):
         )
         return redirect("room", pk=room.id)
 
-    return render(request, "chatterbox/create_room.html")
+    return render(request, "chatterbox/create_room.html",{"form": RoomCreateForm})
 
 @login_required
 def delete_room(request, pk):
