@@ -38,7 +38,6 @@ urlpatterns = [
     path("delete_room/<str:pk>", chatterbox.views.delete_room, name="delete_room"),
     path("edit_room/<str:pk>", chatterbox.views.EditRoom.as_view(), name="edit_room"),
 
-    path("__reload__/", include("django_browser_reload.urls")),
 
     # profiles aplikace
     path("users/", profiles.views.profile_list, name="profiles"),
