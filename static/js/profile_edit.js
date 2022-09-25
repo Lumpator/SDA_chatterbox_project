@@ -25,20 +25,7 @@ function getCookie(name) {
 let csrftoken = getCookie('csrftoken');
 
 
-submitEdit.addEventListener("click", async () => {
-    let formData = new FormData();
-    formData.append("first_name", document.getElementById("first_name").value);
-    formData.append("last_name", document.getElementById("last_name").value);
-    formData.append("email", document.getElementById("email").value);
-    formData.append("about_me", document.getElementById("about_me").value);
-    await fetch("/user/{{ user.username }}/update", {
-        method: "POST",
-        body: formData,
-        headers: {"X-CSRFToken": csrftoken},
-        credentials: 'same-origin'
-    });
-    location.reload()
-})
+
 
 
 const editButton = document.getElementById("edit");

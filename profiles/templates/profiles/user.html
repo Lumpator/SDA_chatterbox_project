@@ -43,25 +43,39 @@
                                                                  value="{{ profile.user.last_login|date:"d.m.Y - H:i" }}"
                                                                  disabled></div>
                 {% if profile.user == request.user %}
-                            <div class="col mt-2">
-                                <button class="btn btn-warning form-control" id="edit">Edit profile</button>
-                            </div>
-                            <div class="col mt-2" id="submit_edit" hidden>
-                                <input type="submit" class="btn btn-outline-primary form-control" id="submitedit"
-                                       value="Save Changes">
-                            </div>
-                            <div class="col mt-2" id="cancel" hidden>
-                                <button class="btn btn-outline-danger form-control" id="cancelbutton"
-                                >Cancel
-                                </button>
-                            </div>
-                        {% endif %}
+                    <div class="col mt-2">
+                        <button class="btn btn-warning form-control" id="edit">Edit profile</button>
+                    </div>
+                    <div class="col mt-2" id="submit_edit" hidden>
+                        <input type="submit" class="btn btn-outline-primary form-control" id="submitedit"
+                               value="Save Changes">
+                    </div>
+                    <div class="col mt-2" id="cancel" hidden>
+                        <button class="btn btn-outline-danger form-control" id="cancelbutton"
+                        >Cancel
+                        </button>
+                    </div>
+                {% endif %}
 
             </div>
         </div>
     </div>
     {% if profile.user == request.user %}
         <script src="../static/js/profile_edit.js"></script>
+        <script>submitEdit.addEventListener("click", async () => {
+            let formData = new FormData();
+            formData.append("first_name", document.getElementById("first_name").value);
+            formData.append("last_name", document.getElementById("last_name").value);
+            formData.append("email", document.getElementById("email").value);
+            formData.append("about_me", document.getElementById("about_me").value);
+            await fetch("/user/{{user.username}}/update", {
+                method: "POST",
+                body: formData,
+                headers: {"X-CSRFToken": csrftoken},
+                credentials: 'same-origin'
+            });
+            location.reload()
+        })</script>
 
 
 
