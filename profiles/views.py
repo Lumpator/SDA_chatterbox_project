@@ -46,15 +46,16 @@ def create_profile(request):
 
     return render(request, "profiles/create_profile.html", {"form": CreateProfileFormProfile, "form2": CreateProfileFormUser})
 
-
+@login_required
 def update_profile(request, username):
     user = get_object_or_404(User, username=username)
-    user.first_name = request.POST.get("first_name")
-    user.last_name = request.POST.get("last_name")
-    user.email = request.POST.get("email")
-    user.save()
-    profile = Profile.objects.get(user=user)
-    profile.about_me = request.POST.get("about_me")
-    profile.save()
+    if request.user == user:
+        user.first_name = request.POST.get("first_name")
+        user.last_name = request.POST.get("last_name")
+        user.email = request.POST.get("email")
+        user.save()
+        profile = Profile.objects.get(user=user)
+        profile.about_me = request.POST.get("about_me")
+        profile.save()
 
     return redirect(request.path_info)
