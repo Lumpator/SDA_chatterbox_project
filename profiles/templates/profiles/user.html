@@ -1,8 +1,94 @@
 {% extends "base.html" %}
 
-{% block title %}User:{{ user.username }}{% endblock %}
+{% block title %}User: {{ profile.user.username }}{% endblock %}
 
 {% block content %}
-    <p> User: {{ user.username }}</p>
-    <p> funguje to </p>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="d-flex flex-column align-items-center text-center p-3 py-2"><img class="rounded-circle mt-2"
+                                                                                             width="200px"
+                                                                                             src="{{ profile.photo }}"><span
+                        class="h2">{{ profile.user.username }}</span>
+                    {% if profile.user == request.user %}
+                        <span class="btn btn-warning" id="upload_new_photo" hidden>upload new photo</span></div>
+                    {% endif %}
+            </div>
+            <div class="col-md-5 border-right">
+                <div class="p-3 py-2">
+<form>
+                    <div class="row mt-2">
+
+                        <div class="col"><label class="labels">First Name</label><input type="text"
+                                                                                        class="form-control"
+                                                                                        id="first_name"
+                                                                                        name="first_name"
+                                                                                        value="{{ profile.user.first_name }}"
+                                                                                        disabled></div>
+                        <div class="col"><label class="labels">Surname</label><input type="text"
+                                                                                     class="form-control"
+                                                                                     id="last_name"
+                                                                                     name="last_name"
+                                                                                     value="{{ profile.user.last_name }}"
+                                                                                     disabled></div>
+                    </div>
+                    <div class="col"><label>Email</label><input type="text" class="form-control" id="email" name="email"
+                                                                value="{{ profile.user.email }}" disabled></div>
+                    <div class="col"><label>About me</label><textarea type="text" rows="3" class="form-control"
+                                                                      id="about_me" name="about_me"
+                                                                      disabled>{{ profile.about_me }}</textarea>
+                    </div>
+
+                    <div class="col"><label>Last login</label><input type="text" class="form-control"
+                                                                     value="{{ profile.user.last_login|date:"d.m.Y - H:i" }}"
+
+                            {% if profile.user == request.user %}
+                                                                     disabled></div>
+                                <div class="col mt-2">
+                                    <button class="btn btn-warning form-control" id="edit">Edit profile</button>
+                                </div>
+                                <div class="col mt-2" id="submit_edit" hidden>
+                                    <input type="submit" class="btn btn-outline-primary form-control" id="submitedit"
+                                           value="Save Changes">
+                                </div>
+                                <div class="col mt-2" id="cancel" hidden>
+                                    <button class="btn btn-outline-danger form-control" id="cancelbutton"
+                                            >Cancel</button>
+                                </div>
+                            {% endif %}
+</form>
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+    {% if profile.user == request.user %}
+        <script>
+            const editButton = document.getElementById("edit");
+            editButton.addEventListener("click", async () => {
+                const uploadPhoto = document.getElementById("upload_new_photo");
+                uploadPhoto.hidden = false;
+                const firstName = document.getElementById("first_name")
+                const lastName = document.getElementById("last_name")
+                const email = document.getElementById("email")
+                const aboutMe = document.getElementById("about_me")
+                firstName.disabled = false;
+                lastName.disabled = false;
+                email.disabled = false;
+                aboutMe.disabled = false;
+                editButton.hidden = true;
+                const submitEdit = document.getElementById("submit_edit")
+                const cancel = document.getElementById("cancel")
+                submitEdit.hidden = false;
+                cancel.hidden = false;
+            })
+        </script>
+        <script>
+        const cancelButton = document.getElementById("cancelbutton")
+        cancelButton.addEventListener("click", async () =>
+        location.reload())
+        </script>
+    {% endif %}
 {% endblock %}

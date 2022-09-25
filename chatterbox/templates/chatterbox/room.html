@@ -2,33 +2,40 @@
 
 {% block title %}Room: {{ room.name }} {% endblock %}
 
+
 {% block content %}
+    <div class="container-fluid">
     <div class="room-descr">
         You are in room: <b>{{ room.name }}</b> <br>
         {{ room.description }}
     </div>
-    <h2>Create message</h2>
-    <div class="message-form">
+
+ <div class="container-fluid">
+
         <form action="" method="POST">
             {% csrf_token %}
-            <label for="body">Message: </label>
-            <input name="body" id="body" type="text" placeholder="Write your message here....">
-            <input type="submit" value="Send">
+            <input class="form-control" name="body" id="body" type="text" placeholder="Write your message here....">
+            <input class="btn btn-primary mt-1 col-5" type="submit" value="Send">
         </form>
+
     </div>
 
-    <h2>Messages</h2>
-    <div class="message-box">
+    <div class="container-fluid">
         {% for message in messages %}
-            <div class=
+
                          {% if message.user == request.user %}
-                             "my-message">
+                             <p class="my-message">
                          {% else %}
-                             "other-message">
+                             <p class="other-message">
                          {% endif %}
             <b>{{ message.user }}</b>: {{ message.body }} <br>
-            <span class="msg-time"><i>{{ message.created }}</i></span>
-            </div>
+            <span class="msg-time"><i>{{ message.created|date:"d.m. H:i" }}</i></span>
+            </p>
         {% endfor %}
+    </div>
+
+
+
+
     </div>
 {% endblock %}

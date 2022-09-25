@@ -4,8 +4,7 @@
 
 {% block content %}
     {% if last_msg %}
-
-        <div class="card m-1 mt-3">
+        <div class="card m-1 mt-3 col-10">
             <div class="card-header">
                 Your last message was: {{ last_msg.created }}
             </div>
@@ -16,7 +15,6 @@
                 <a href="{% url "room" last_msg.room.id %}" class="btn btn-primary">Take me there</a>
             </div>
         </div>
-
     {% endif %}
     {% include "chatterbox/list_of_rooms_block.html" %}
 {% endblock %}

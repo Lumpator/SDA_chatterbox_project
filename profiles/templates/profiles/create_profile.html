@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container-fluid">
+    <form method="POST" action="" enctype="multipart/form-data">
+            {% csrf_token %}
+        <label for="first_name" class="form-label mt-2">First name:</label>
+       <input type="text" class="form-control" id="first_name" name="first_name" value="{{ request.user.first_name }}">
+        <label for="last_name" class="form-label mt-2">Last name:</label>
+       <input type="text" class="form-control" id="last_name" name="last_name" value="{{ request.user.last_name }}">
+        <label for="about_me" class="form-label mt-2">About me:</label>
+        <textarea class="form-control" id="about_me" name="about_me" rows=3>{{ request.user.userprofie.about_me }}</textarea>
+         <label for="upload" class="form-label mt-2">Profile Photo (for best result use ratio 1:1)</label>
+        <input class="form-control" type="file" id="upload" name="upload">
+        <input type="submit" class="btn btn-primary col-4 mt-2" value="Create Profile">
+    </form>
+</div>
+
+
+{% endblock %}

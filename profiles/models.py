@@ -12,6 +12,9 @@ class Profile(models.Model):
     photo = models.TextField(null=True)
     last_seen = models.DateTimeField(auto_now=True)
 
+    def __str__(self):
+        return f"{self.user.username}'s Profile"
+
 
 class OnLineUsers(models.Model):
     logged = models.OneToOneField(User, on_delete=models.CASCADE)

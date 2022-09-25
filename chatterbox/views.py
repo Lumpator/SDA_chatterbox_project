@@ -15,6 +15,7 @@ from chatterbox.utils.utils_functions import text_to_unicode
 def hello(request, s: str):
     return HttpResponse(f"Hello, {s} world!")
 
+
 def home(request):
     rooms = Room.objects.all()
     try:
@@ -24,6 +25,7 @@ def home(request):
 
     context = {"rooms": rooms, "last_msg": last_msg}
     return render(request, "chatterbox/home.html", context)
+
 
 @login_required
 def search(request):
@@ -41,6 +43,7 @@ def search(request):
             return redirect(request.META.get('HTTP_REFERER'))
     return render(request, "chatterbox/search.html")
 
+
 @login_required
 def room(request, pk):
     room = Room.objects.get(id=pk)
@@ -57,6 +60,7 @@ def room(request, pk):
     context = {"room": room, "messages": messages}
     return render(request, "chatterbox/room.html", context)
 
+
 @login_required
 def rooms(request):
     rooms = Room.objects.all()
@@ -64,6 +68,7 @@ def rooms(request):
     context = {"rooms": rooms}
 
     return render(request, "chatterbox/rooms.html", context)
+
 
 @login_required
 def create_room(request):
@@ -75,7 +80,8 @@ def create_room(request):
         )
         return redirect("room", pk=room.id)
 
-    return render(request, "chatterbox/create_room.html",{"form": RoomCreateForm})
+    return render(request, "chatterbox/create_room.html", {"form": RoomCreateForm})
+
 
 @login_required
 def delete_room(request, pk):
@@ -83,6 +89,7 @@ def delete_room(request, pk):
     room.delete()
 
     return redirect("rooms")
+
 
 @method_decorator(login_required, name="dispatch")
 class EditRoom(UpdateView):

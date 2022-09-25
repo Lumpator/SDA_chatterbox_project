@@ -15,17 +15,21 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 {% if request.user.is_authenticated %}
+                    <li class="nav-item col-2"><a class="nav-link btn btn-outline-danger"
+                                            href="{% url "logout" %}">Logout</a>
                     <li class="nav-item"><a class="nav-link" href="{% url 'create_room' %}">Create Room</a></li>
                     <li class="nav-item"><a class="nav-link" href="{% url 'rooms' %}">Rooms</a></li>
                     <li class="nav-item"><a class="nav-link" href="{% url 'profiles' %}">Users</a></li> <!-- TODO -->
-                    <li class="nav-item"><a class="nav-link"
-                                            href="{% url "logout" %}">Logout</a></li>
 
-                    <form class="d-flex" role="search" action="/search/" method="post">
+
+                    <li class="nav-item col-4">
+                        <form role="search" action="/search/" method="post">
                         {% csrf_token %}
-                        <input class="form-control me-2" type="search" name="search" aria-label="Search"
+                        <input class="form-control" type="search" name="search" aria-label="Search"
                                placeholder="&#128269; Search">
                     </form>
+                    </li>
+
 
                 {% endif %}
 

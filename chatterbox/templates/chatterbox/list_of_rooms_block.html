@@ -14,15 +14,15 @@
             <tr>
                 {% comment %} Room name Col {% endcomment %}
                 <td class="col">
-                    <a href="{% url "room" room.id %}" class="btn btn-primary">{{ room.name }} <span
+                    <a href="{% url "room" room.id %}" class="btn btn-primary col-12">{{ room.name }} <span
                             class="badge text-bg-secondary">{{ room.message_count }}
                         {% if room.message_count == 1 %}
                             message {% else %} messages {% endif %}</span></a>
 
                     {% if room.host.id == request.user.id %}
-                        <div class="btn-group" role="group">
-                            <a class="btn btn-danger" href="{% url "delete_room" room.id %}">Delete</a>
-                            <a class="btn btn-warning" href="{% url "edit_room" room.id %}">Edit</a>
+                        <div class="btn-group col-12" role="group">
+                            <a class="btn btn-danger col-7" href="{% url "delete_room" room.id %}">Delete</a>
+                            <a class="btn btn-warning col-5" href="{% url "edit_room" room.id %}">Edit</a>
                         </div>
 
                     {% endif %} </td>
