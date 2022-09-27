@@ -5,17 +5,21 @@
 {% block content %}
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-5 mt-5">
                 <div class="d-flex flex-column align-items-center text-center p-3 py-2"><img class="rounded-circle mt-2"
                                                                                              width="200px"
                                                                                              src="{{ profile.photo }}"><span
                         class="h2">{{ profile.user.username }}</span>
                     {% if profile.user == request.user %}
-                        <span class="btn btn-warning" id="upload_new_photo" hidden>upload new photo</span>
+                        <form method="post" action="/user/{{user.username}}/updatephoto" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <input class="form-control" type="file" id="upload_new_photo" name="upload_new_photo" hidden>
+                        <input type="submit" class="form-control btn btn-outline-primary" value="Confirm new photo" id="upload_photo_submit" hidden>
+                        </form>
                     {% endif %}
                 </div>
             </div>
-            <div class="col-md-5 border-right">
+            <div class="col-md-6 border-right">
 
                 <div class="row mt-2">
 

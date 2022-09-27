@@ -43,6 +43,7 @@ urlpatterns = [
     path("users/", profiles.views.profile_list, name="profiles"),
     path("user/<str:username>", profiles.views.user_profile, name="profile"),
     path("user/<str:username>/update", profiles.views.update_profile, name="update"),
+    path("user/<str:username>/updatephoto", profiles.views.update_photo, name="update"),
     path("create_profile/", profiles.views.create_profile, name="create_profile")
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

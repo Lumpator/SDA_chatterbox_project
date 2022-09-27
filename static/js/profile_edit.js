@@ -5,6 +5,7 @@ const email = document.getElementById("email")
 const aboutMe = document.getElementById("about_me")
 const submitEdit = document.getElementById("submit_edit")
 const cancel = document.getElementById("cancel")
+const uploadPhotoSubmit = document.getElementById("upload_photo_submit")
 
 function getCookie(name) {
     var cookieValue = null;
@@ -38,6 +39,7 @@ editButton.addEventListener("click", async () => {
     editButton.hidden = true;
     submitEdit.hidden = false;
     cancel.hidden = false;
+    uploadPhotoSubmit.hidden = false;
 })
 
 const cancelButton = document.getElementById("cancelbutton")

@@ -3,7 +3,7 @@
 {% block title %}Create new room{% endblock %}
 
 {% block content %}
-<div class="container-fluid">
+<div class="container-fluid col-lg-8">
     <form method="POST" action="">
             {% csrf_token %}
         {{ form.as_p }}

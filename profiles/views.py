@@ -1,6 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.core.files.storage import FileSystemStorage
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 
 from profiles.forms.forms import CreateProfileFormProfile, CreateProfileFormUser
@@ -33,10 +34,13 @@ def create_profile(request):
         user.first_name = request.POST.get("first_name")
         user.last_name = request.POST.get("last_name")
         user.save()
-        upload = request.FILES["upload"]
-        file_storage = FileSystemStorage()
-        file = file_storage.save(upload.name, upload)
-        file_url = file_storage.url(file)
+        if request.FILES.get("upload"):
+            upload = request.FILES["upload"]
+            file_storage = FileSystemStorage()
+            file = file_storage.save(upload.name, upload)
+            file_url = file_storage.url(file)
+        else:
+            file_url = "/media/no_image.png"
         profile = Profile.objects.create(
             user=request.user,
             about_me=request.POST.get("about_me"),
@@ -50,12 +54,27 @@ def create_profile(request):
 def update_profile(request, username):
     user = get_object_or_404(User, username=username)
     if request.user == user:
-        user.first_name = request.POST.get("first_name")
-        user.last_name = request.POST.get("last_name")
-        user.email = request.POST.get("email")
-        user.save()
-        profile = Profile.objects.get(user=user)
-        profile.about_me = request.POST.get("about_me")
-        profile.save()
+            user.first_name = request.POST.get("first_name")
+            user.last_name = request.POST.get("last_name")
+            user.email = request.POST.get("email")
+            user.save()
+            profile = Profile.objects.get(user=user)
+            profile.about_me = request.POST.get("about_me")
+            profile.save()
 
-    return redirect(request.path_info)
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+
+@login_required
+def update_photo(request, username):
+    user = get_object_or_404(User, username=username)
+    if request.user == user:
+        if request.FILES:
+            photo = request.FILES["upload_new_photo"]
+            file_storage = FileSystemStorage()
+            file = file_storage.save(photo.name, photo)
+            file_url = file_storage.url(file)
+            profile = Profile.objects.get(user=user)
+            profile.photo = file_url
+            profile.save()
+
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
