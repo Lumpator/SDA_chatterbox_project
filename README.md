@@ -1,7 +1,7 @@
 # Project from module "Backend technologies" as part of [Python from scratch course by SDA](https://sdacademy.cz/kurzy/python/)
+# 50 % of code was written during class, 50 % of code is my own 
 
-## Chatterbox web appliaction (with Django and responsive Bootstrap class design)
-
+## Chatterbox web appliaction (with Django and Bootstrap)
 ### Functions
 
 - Sign Up, Log In (default Django auth)
