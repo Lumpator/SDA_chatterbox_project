@@ -13,15 +13,6 @@
 - Search for word in any message or in Room name (no indexing, case and diacritics insensitive)
 - Write a message in any Room (websocket is not implemented)
 
-### Screenshots
 
-![Desktop Homepage](/screenshots/desktop_HP.png)
-![Desktop Profile Page](/screenshots/desktop_profile.png)
-![Desktop Profile Edit](/screenshots/desktop_profile_edit.png)
-![Desktop Rooms Page](/screenshots/desktop_rooms.png)
-
-<img src="/screenshots/mobile_profile.jpeg" width="300">
-<img src="/screenshots/mobile_chat_room.jpeg" width="300">
-<img src="/screenshots/mobile_HP.jpeg" width="300">
 
 
